@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Navigator</string>
+    <string-array name="spinner_data">
+        <item>百度</item>
+        <item>Gitee</item>
+        <item>知网</item>
+    </string-array>
+    >
+</resources>
