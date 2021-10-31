@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         SharedPreferences.Editor ed=sharedPreferences.edit();
         ed.putString("search",search);
         ed.putString("search_engine",search_engine);
-        ed.commit();
         ed.apply();
 
         //保存搜索记录
@@ -82,10 +81,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         SharedPreferences.Editor editor=sp.edit();
         Set search_record=null;
         search_record= sp.getStringSet("search_record", new HashSet());
-        search_record.add(search);
-        editor.putStringSet("search_record",search_record);
-        editor.apply();
+        /*search_record.add(search);
+        editor.putStringSet("search_record",search_record);*/
+        Set new_set=new HashSet();
+        new_set.addAll(search_record);
+        new_set.add(search);
+        editor.putStringSet("search_record",new_set);
         editor.commit();
+        Log.i("set", "click: "+sp.getStringSet("search_record", new HashSet()));
         startActivityForResult(intent,1);
     }
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -107,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         SharedPreferences sp=getSharedPreferences("search_record",MainActivity.MODE_PRIVATE);
         Set search_record=null;
         search_record= sp.getStringSet("search_record", new HashSet());
-        List<String> s_r=new ArrayList<>(search_record);
+        Log.i("len", "showListPopulWindow: "+search_record);
+        List<String> s_r=new ArrayList<String>(search_record);
         s_r.add("搜索记录");
         if(s_r.size()>=5){
             s_r=s_r.subList(0,5);
